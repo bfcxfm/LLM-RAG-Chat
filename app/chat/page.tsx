@@ -7,6 +7,7 @@ import { useState } from "react";
 export default function ChatPage() {
   const [waitingForAI, setWaitingForAI] = useState<Boolean>(false);
   const { messages, input, handleInputChange, handleSubmit } = useChat();
+
   return (
     <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
       <div className="space-y-4">

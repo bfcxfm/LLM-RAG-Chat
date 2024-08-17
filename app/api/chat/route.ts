@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     const latestMessage = messages[messages.length - 1].content;
 
     const model = new ChatOpenAI({
-      model: "gpt-3.5-turbo-0125",
+      model: "gpt-4o-mini",
       temperature: 0.8,
       streaming: true,
     });
@@ -24,10 +24,12 @@ export async function POST(req: Request) {
     });
 
     // Retrieve relevant documents
-    const relevantDocs = await retriever.getRelevantDocuments(latestMessage);
+    const relevantDocs = await retriever.invoke(latestMessage);
 
     // Prepare the prompt with context
     const contextPrompt = `
+            You are an Architect Expert. Please assist the user based on the provided context.
+
             Context: ${relevantDocs.map((doc) => doc.pageContent).join("\n\n")}
             
             Human: ${latestMessage}
