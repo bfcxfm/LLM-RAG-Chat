@@ -71,8 +71,8 @@
             "group": "external",
             "position": "after"
           }
-        ],
-        "newlines-between": "off"
+        ]
+//        "newlines-between": "never"
       }
     ],
     "react/self-closing-comp": "warn",
