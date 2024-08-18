@@ -60,7 +60,7 @@ async function submitUserMessage(content: string) {
   console.log("apiurl", formattedApiUrl);
 
   // Call the API route for vector search
-  const response = await fetch(`${formattedApiUrl}/api/chat`, {
+  const response = await fetch("api/chat", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
