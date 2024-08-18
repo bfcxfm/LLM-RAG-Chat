@@ -15,7 +15,7 @@ export const siteConfig = {
     },
     {
       label: "Chat",
-      href: "/chat",
+      href: "/start",
     },
     {
       label: "File",
@@ -36,16 +36,8 @@ export const siteConfig = {
       href: "/dashboard",
     },
     {
-      label: "Projects",
-      href: "/projects",
-    },
-    {
-      label: "Team",
-      href: "/team",
-    },
-    {
-      label: "Calendar",
-      href: "/calendar",
+      label: "Chat",
+      href: "/start",
     },
     {
       label: "Settings",
@@ -61,7 +53,7 @@ export const siteConfig = {
     },
   ],
   links: {
-    github: "https://github.com/nextui-org/nextui",
+    github: "https://github.com/bfcxfm",
     twitter: "https://twitter.com/getnextui",
     docs: "https://nextui.org",
     discord: "https://discord.gg/9b6yyZKmH4",

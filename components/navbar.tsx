@@ -1,3 +1,4 @@
+import * as React from "react";
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -25,6 +26,44 @@ import {
   SearchIcon,
   Logo,
 } from "@/components/icons";
+
+import { auth } from "@/auth";
+import { SidebarMobile } from "./sidebar-mobile";
+import { ChatHistory } from "./chat-history";
+import { SidebarToggle } from "./sidebar-toggle";
+import { UserMenu } from "./user-menu";
+import {
+  IconGitHub,
+  IconNextChat,
+  IconSeparator,
+  IconVercel,
+} from "@/components/ui/icons";
+
+async function UserOrLogin() {
+  const session = (await auth()) as Session;
+  return (
+    <>
+      {session?.user && (
+        <>
+          <SidebarMobile>
+            <ChatHistory userId={session.user.id} />
+          </SidebarMobile>
+          <SidebarToggle />
+          <IconSeparator className="size-6 text-muted-foreground/50" />
+        </>
+      )}
+      <div className="flex items-center">
+        {session?.user ? (
+          <UserMenu user={session.user} />
+        ) : (
+          <Button variant="link" asChild className="-ml-2">
+            <Link href="/login">Login</Link>
+          </Button>
+        )}
+      </div>
+    </>
+  );
+}
 
 export const Navbar = () => {
   const searchInput = (
@@ -54,7 +93,7 @@ export const Navbar = () => {
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
             <Logo />
-            <p className="font-bold text-inherit">AI</p>
+            <p className="font-bold text-inherit">AKI</p>
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
@@ -79,6 +118,11 @@ export const Navbar = () => {
         className="hidden sm:flex basis-1/5 sm:basis-full"
         justify="end"
       >
+        <div className="flex items-center">
+          <React.Suspense fallback={<div className="flex-1 overflow-auto" />}>
+            <UserOrLogin />
+          </React.Suspense>
+        </div>
         <NavbarItem className="hidden sm:flex gap-2">
           {/* <Link isExternal aria-label="Twitter" href={siteConfig.links.twitter}>
             <TwitterIcon className="text-default-500" />

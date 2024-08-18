@@ -16,6 +16,7 @@ export async function POST(req: NextRequest) {
     if (uploadedFiles && uploadedFiles.length > 0) {
       // Parse the data from uploaded file
       const uploadedFile = uploadedFiles[1];
+
       console.log("Uploaded file:", uploadedFile);
 
       if (uploadedFile instanceof File) {
@@ -51,12 +52,14 @@ export async function POST(req: NextRequest) {
             searchArgs()
           );
         });
+
         return NextResponse.json(
           { message: "Uploaded to MongoDB" },
           { status: 200 }
         );
       } else {
         console.log("Uploaded file is not in the expected format.");
+
         return NextResponse.json(
           { message: "Uploaded file is not in the expected format" },
           { status: 500 }
@@ -64,11 +67,13 @@ export async function POST(req: NextRequest) {
       }
     } else {
       console.log("No files found.");
+
       return NextResponse.json({ message: "No files found" }, { status: 500 });
     }
   } catch (error) {
     console.error("Error processing request:", error);
     // Handle the error accordingly, for example, return an error response.
+
     return new NextResponse("An error occurred during processing.", {
       status: 500,
     });
