@@ -51,10 +51,16 @@ async function submitUserMessage(content: string) {
 
   const apiUrl = process.env.VERCEL_URL || "http://localhost:3000";
 
-  console.log("apiurl", apiUrl);
+  // Ensure the API URL has the correct protocol
+  const formattedApiUrl =
+    apiUrl.startsWith("http://") || apiUrl.startsWith("https://")
+      ? apiUrl
+      : `https://${apiUrl}`;
+
+  console.log("apiurl", formattedApiUrl);
 
   // Call the API route for vector search
-  const response = await fetch(`${apiUrl}/api/chat`, {
+  const response = await fetch(`${formattedApiUrl}/api/chat`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
