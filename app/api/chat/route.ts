@@ -1,22 +1,11 @@
-import { ChatOpenAI } from "@langchain/openai";
-import { LangChainAdapter } from "ai";
-import { Message } from "ai";
-import { vectorStore } from "@/utils/openai";
 import { NextResponse } from "next/server";
+import { vectorStore } from "@/utils/openai";
 
 export const maxDuration = 60;
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const messages: Message[] = body.messages ?? [];
-    const latestMessage = messages[messages.length - 1].content;
-
-    const model = new ChatOpenAI({
-      model: "gpt-4o-mini",
-      temperature: 0.8,
-      streaming: true,
-    });
+    const { query } = await req.json();
 
     const retriever = vectorStore().asRetriever({
       searchType: "mmr",
@@ -24,22 +13,9 @@ export async function POST(req: Request) {
     });
 
     // Retrieve relevant documents
-    const relevantDocs = await retriever.invoke(latestMessage);
+    const relevantDocs = await retriever.invoke(query);
 
-    // Prepare the prompt with context
-    const contextPrompt = `
-            You are an Architect Expert. Please assist the user based on the provided context.
-
-            Context: ${relevantDocs.map((doc) => doc.pageContent).join("\n\n")}
-            
-            Human: ${latestMessage}
-            
-            Assistant: Based on the context provided, here's my response:
-        `;
-
-    const stream = await model.stream(contextPrompt);
-
-    return LangChainAdapter.toDataStreamResponse(stream);
+    return NextResponse.json({ relevantDocs });
   } catch (e) {
     console.error(e);
     return NextResponse.json({ message: "Error Processing" }, { status: 500 });

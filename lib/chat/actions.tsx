@@ -26,77 +26,8 @@ import { saveChat } from "@/app/actions";
 import { SpinnerMessage, UserMessage } from "@/components/aki/message";
 import { Chat, Message } from "@/lib/types";
 import { auth } from "@/auth";
-import { vectorStore } from "../openai";
-
-async function confirmPurchase(symbol: string, price: number, amount: number) {
-  "use server";
-
-  const aiState = getMutableAIState<typeof AI>();
-
-  const purchasing = createStreamableUI(
-    <div className="inline-flex items-start gap-1 md:items-center">
-      {spinner}
-      <p className="mb-2">
-        Purchasing {amount} ${symbol}...
-      </p>
-    </div>
-  );
-
-  const systemMessage = createStreamableUI(null);
-
-  runAsyncFnWithoutBlocking(async () => {
-    await sleep(1000);
-
-    purchasing.update(
-      <div className="inline-flex items-start gap-1 md:items-center">
-        {spinner}
-        <p className="mb-2">
-          Purchasing {amount} ${symbol}... working on it...
-        </p>
-      </div>
-    );
-
-    await sleep(1000);
-
-    purchasing.done(
-      <div>
-        <p className="mb-2">
-          You have successfully purchased {amount} ${symbol}. Total cost:{" "}
-          {formatNumber(amount * price)}
-        </p>
-      </div>
-    );
-
-    systemMessage.done(
-      <SystemMessage>
-        You have purchased {amount} shares of {symbol} at ${price}. Total cost ={" "}
-        {formatNumber(amount * price)}.
-      </SystemMessage>
-    );
-
-    aiState.done({
-      ...aiState.get(),
-      messages: [
-        ...aiState.get().messages,
-        {
-          id: nanoid(),
-          role: "system",
-          content: `[User has purchased ${amount} shares of ${symbol} at ${price}. Total cost = ${
-            amount * price
-          }]`,
-        },
-      ],
-    });
-  });
-
-  return {
-    purchasingUI: purchasing.value,
-    newMessage: {
-      id: nanoid(),
-      display: systemMessage.value,
-    },
-  };
-}
+import { Aoboshi_One } from "next/font/google";
+// import { vectorStore } from "../openai";
 
 async function submitUserMessage(content: string) {
   "use server";
@@ -118,17 +49,34 @@ async function submitUserMessage(content: string) {
   let textStream: undefined | ReturnType<typeof createStreamableValue<string>>;
   let textNode: undefined | React.ReactNode;
 
-  const latestMessage = content;
+  const apiUrl = process.env.VERCEL_URL || "http://localhost:3000";
 
-  const retriever = vectorStore().asRetriever({
-    searchType: "mmr",
-    searchKwargs: { fetchK: 10, lambda: 0.25 },
+  console.log("apiurl", apiUrl);
+
+  // Call the API route for vector search
+  const response = await fetch(`${apiUrl}/api/chat`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ query: content }),
   });
-  const relevantDocs = await retriever.invoke(latestMessage);
+
+  if (!response.ok) {
+    console.error("Error fetching relevant docs:", await response.text());
+    return {
+      id: nanoid(),
+      display: (
+        <BotMessage content="Sorry, I encountered an error while processing your request." />
+      ),
+    };
+  }
+
+  const { relevantDocs } = await response.json();
   console.log("Relevant docs:", relevantDocs);
 
   // Prepare the context from relevant documents
-  const context = relevantDocs.map((doc) => doc.pageContent).join("\n\n");
+  const context = relevantDocs.map((doc: any) => doc.pageContent).join("\n\n");
 
   const result = await streamUI({
     model: openai("gpt-4o-mini"),
@@ -150,7 +98,7 @@ async function submitUserMessage(content: string) {
       },
       {
         role: "user",
-        content: latestMessage,
+        content: content,
       },
     ],
     text: ({ content, done, delta }) => {
@@ -200,7 +148,6 @@ export type UIState = {
 export const AI = createAI<AIState, UIState>({
   actions: {
     submitUserMessage,
-    confirmPurchase,
   },
   initialUIState: [],
   initialAIState: { chatId: nanoid(), messages: [] },
