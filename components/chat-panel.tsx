@@ -68,7 +68,7 @@ export function ChatPanel({
         <div className="mb-4 grid grid-cols-2 gap-2 px-4 sm:px-0">
           {messages.length === 0 &&
             exampleMessages.map((example, index) => (
-              <div
+              <button
                 key={example.heading}
                 className={`cursor-pointer rounded-lg border bg-white p-4 hover:bg-zinc-50 dark:bg-zinc-950 dark:hover:bg-zinc-900 ${
                   index > 1 && "hidden md:block"
@@ -96,7 +96,7 @@ export function ChatPanel({
                 <div className="text-sm text-zinc-600">
                   {example.subheading}
                 </div>
-              </div>
+              </button>
             ))}
         </div>
 
