@@ -17,12 +17,9 @@ export function EmptyScreen() {
           chatbot app is crafted exclusively for architecture.
         </p>
         <p className="leading-normal text-muted-foreground">
-          It delivers precise and context-specific guidance through advanced
-          Retrieval-Augmented Generation (RAG) technology. By tapping into an
-          extensive database of pre-trained architectural knowledge, it offers
-          invaluable insights tailored to your specific needs.
+          It provides context-specific guidance using advanced Retrieval-Augmented Generation (RAG) technology, drawing on a vast database of pre-trained architectural knowledge to offer tailored insights.
         </p>
-        <p className="leading-normal text-muted-foreground">
+        <p className="leading-normal text-muted-foreground hidden md:block">
           For administrative users, the platform also allows for the upload of
           training data and custom code, ensuring that the assistant remains
           current and capable of providing the most informed and insightful
