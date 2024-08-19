@@ -49,18 +49,13 @@ async function submitUserMessage(content: string) {
   let textStream: undefined | ReturnType<typeof createStreamableValue<string>>;
   let textNode: undefined | React.ReactNode;
 
-  const apiUrl = process.env.VERCEL_URL || "http://localhost:3000";
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
-  // Ensure the API URL has the correct protocol
-  const formattedApiUrl =
-    apiUrl.startsWith("http://") || apiUrl.startsWith("https://")
-      ? apiUrl
-      : `https://${apiUrl}`;
-
-  console.log("apiurl", formattedApiUrl);
+  console.log("apiurl", apiUrl);
+  console.log("query", JSON.stringify({ query: content }));
 
   // Call the API route for vector search
-  const response = await fetch("api/chat", {
+  const response = await fetch(`${apiUrl}/api/chat`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

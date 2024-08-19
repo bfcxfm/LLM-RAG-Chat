@@ -37,7 +37,7 @@ export const siteConfig = {
     },
     {
       label: "Chat",
-      href: "/start",
+      href: "/aki",
     },
     {
       label: "Settings",

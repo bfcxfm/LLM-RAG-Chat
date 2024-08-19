@@ -26,7 +26,7 @@ export default function Home() {
             radius: "full",
             variant: "shadow",
           })}
-          href="/start"
+          href="/aki"
         >
           Start here
         </Link>
