@@ -15,7 +15,7 @@ export const siteConfig = {
     },
     {
       label: "Chat",
-      href: "/start",
+      href: "/aki",
     },
     {
       label: "File",
@@ -46,10 +46,6 @@ export const siteConfig = {
     {
       label: "Help & Feedback",
       href: "/help-feedback",
-    },
-    {
-      label: "Logout",
-      href: "/logout",
     },
   ],
   links: {
