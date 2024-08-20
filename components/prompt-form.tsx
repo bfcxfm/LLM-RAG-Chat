@@ -17,6 +17,7 @@ import {
 import { useEnterSubmit } from "@/lib/hooks/use-enter-submit";
 import { nanoid } from "nanoid";
 import { useRouter } from "next/navigation";
+import { RefreshCw } from 'lucide-react';
 
 export function PromptForm({
   input,
@@ -77,7 +78,7 @@ export function PromptForm({
                 router.push("/new");
               }}
             >
-              <IconPlus />
+              <RefreshCw strokeWidth={1} size={16}/>
               <span className="sr-only">New Chat</span>
             </Button>
           </TooltipTrigger>

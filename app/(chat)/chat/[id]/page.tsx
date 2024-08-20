@@ -38,7 +38,7 @@ export default async function ChatPage({ params }: ChatPageProps) {
   const missingKeys = await getMissingKeys()
 
   if (!session?.user) {
-    redirect(`/login?next=/chat/${params.id}`)
+    redirect(`/login?next=/aki/chat/${params.id}`)
   }
 
   const userId = session.user.id as string

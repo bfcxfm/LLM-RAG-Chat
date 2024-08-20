@@ -12,7 +12,7 @@ export function FooterText({ className, ...props }: React.ComponentProps<"p">) {
       )}
       {...props}
     >
-      AI chatbot that leverages context knowledge retrieval.
+      AKI chatbot that leverages context knowledge retrieval.
     </p>
   );
 }

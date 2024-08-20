@@ -43,7 +43,7 @@ export default function Home() {
       <div className="mt-8">
         <Snippet hideCopyButton hideSymbol variant="bordered">
           <span>
-            Get started by clicking on&nbsp;
+            Save your history and chat upon&nbsp;
             <Code color="primary">Login</Code>
           </span>
         </Snippet>
