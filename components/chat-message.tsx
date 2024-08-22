@@ -4,12 +4,9 @@
 import { Message } from "ai";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
-import rehypeStringify from "rehype-stringify";
-import remarkRehype from "remark-rehype";
-import remarkParse from "remark-parse";
 
-import rehypeKatex from "rehype-katex";
-import "katex/dist/katex.min.css"; // rehype-katex does not import the CSS for you
+// import rehypeKatex from "rehype-katex";
+// import "katex/dist/katex.min.css";
 
 import { cn } from "@/lib/utils";
 import { CodeBlock } from "@/components/ui/codeblock";
