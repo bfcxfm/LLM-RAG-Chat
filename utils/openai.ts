@@ -21,7 +21,8 @@ export function getEmbeddingsTransformer(): OpenAIEmbeddings {
     // Ensure embeddingsInstance is initialized only once for efficiency
     if (!embeddingsInstance) {
       embeddingsInstance = new OpenAIEmbeddings({
-        model: "text-embedding-3-small", // Specify the embedding model
+        model: "text-embedding-3-large", // Specify the embedding model
+        dimensions: 3072, // Specify dimension, to align with mongoDB vector
       });
     }
 

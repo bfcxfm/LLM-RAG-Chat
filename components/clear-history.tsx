@@ -1,11 +1,11 @@
-'use client'
+"use client";
 
-import * as React from 'react'
-import { useRouter } from 'next/navigation'
-import { toast } from 'sonner'
+import * as React from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
-import { ServerActionResult } from '@/lib/types'
-import { Button } from '@/components/ui/button'
+import { ServerActionResult } from "@/lib/types";
+import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,22 +15,22 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger
-} from '@/components/ui/alert-dialog'
-import { IconSpinner } from '@/components/ui/icons'
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { IconSpinner } from "@/components/ui/icons";
 
 interface ClearHistoryProps {
-  isEnabled: boolean
-  clearChats: () => ServerActionResult<void>
+  isEnabled: boolean;
+  clearChats: () => ServerActionResult<void>;
 }
 
 export function ClearHistory({
   isEnabled = false,
-  clearChats
+  clearChats,
 }: ClearHistoryProps) {
-  const [open, setOpen] = React.useState(false)
-  const [isPending, startTransition] = React.useTransition()
-  const router = useRouter()
+  const [open, setOpen] = React.useState(false);
+  const [isPending, startTransition] = React.useTransition();
+  const router = useRouter();
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
@@ -52,17 +52,20 @@ export function ClearHistory({
           <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
           <AlertDialogAction
             disabled={isPending}
-            onClick={event => {
-              event.preventDefault()
+            onClick={(event) => {
+              event.preventDefault();
               startTransition(async () => {
-                const result = await clearChats()
-                if (result && 'error' in result) {
-                  toast.error(result.error)
-                  return
+                const result = await clearChats();
+                if (result && "error" in result) {
+                  toast.error(result.error);
+                  return;
                 }
 
-                setOpen(false)
-              })
+                setOpen(false);
+                router.refresh();
+                router.push("/aki");
+                toast.success("History deleted");
+              });
             }}
           >
             {isPending && <IconSpinner className="mr-2 animate-spin" />}
@@ -71,5 +74,5 @@ export function ClearHistory({
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-  )
+  );
 }
