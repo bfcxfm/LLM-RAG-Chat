@@ -1,7 +1,6 @@
 "use client";
 import { EventsSkeleton } from "./events-skeleton";
 import dynamic from "next/dynamic";
-
 export { spinner } from "./spinner";
 export { BotCard, BotMessage, SystemMessage } from "./message";
 
