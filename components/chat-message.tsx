@@ -41,8 +41,7 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
       <div className="flex-1 px-1 ml-4 space-y-2 overflow-hidden">
         <MemoizedReactMarkdown
           className="prose break-words dark:prose-invert prose-p:leading-relaxed prose-pre:p-0"
-          remarkPlugins={[remarkGfm, remarkMath, remarkRehype]}
-          rehypePlugins={[rehypeKatex]}
+          remarkPlugins={[remarkGfm, remarkMath]}
           components={{
             p({ children }) {
               return <p className="mb-2 last:mb-0">{children}</p>;
