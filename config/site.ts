@@ -1,9 +1,9 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "LLM Chat Application",
+  name: "AKI Chat",
   description:
-    "AI chatbot that leverages context knowledge retrieval for enriched, conversational experiences",
+    "AKI chatbot that leverages context knowledge retrieval for enriched, conversational experiences",
   navItems: [
     {
       label: "Home",
@@ -11,19 +11,15 @@ export const siteConfig = {
     },
     {
       label: "Docs",
-      href: "/docs",
+      href: "/#",
     },
     {
       label: "Chat",
       href: "/aki",
     },
     {
-      label: "File",
-      href: "/file",
-    },
-    {
       label: "About",
-      href: "/about",
+      href: "/#",
     },
   ],
   navMenuItems: [

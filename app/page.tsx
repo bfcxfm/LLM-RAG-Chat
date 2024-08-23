@@ -11,7 +11,8 @@ export default function Home() {
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
       <div className="inline-block max-w-lg pt-20 text-center justify-center">
-        <h1 className={title()}>AKI chatbot that leverages&nbsp;</h1>
+        <h1 className={title({ color: "violet" })}>AKI&nbsp;</h1>
+        <h1 className={title()}>chatbot that leverages&nbsp;</h1>
         <h1 className={title({ color: "violet" })}>context &nbsp;</h1>
         <h1 className={title()}>knowledge retrieval.</h1>
         <h2 className={subtitle({ class: "mt-4" })}>
