@@ -22,10 +22,10 @@ export async function ChatHistory({ userId, isAdmin }: ChatHistoryProps) {
       <div className="mb-2 px-2">
         {isAdmin && (
           <Link
-            href="/aki"
+            href="/upload"
             className={cn(
               buttonVariants({ variant: "link" }),
-              "h-10 w-full justify-start px-4 shadow-none transition-colors hover:bg-zinc-200/40 dark:bg-zinc-900 dark:hover:bg-zinc-300/10"
+              "h-10 w-full justify-start px-4 shadow-none transition-colors hover:bg-zinc-200/40  dark:hover:bg-zinc-300/10"
             )}
           >
             <FolderUp className="-translate-x-2 stroke-1" />

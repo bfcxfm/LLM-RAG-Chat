@@ -1,3 +1,68 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Default light theme styles */
+.filepond--panel-root {
+  background-color: #ffffff; /* Default white background */
+  /* ... other styles ... */
+}
+
+/* Light theme filepond drop label */
+.filepond--drop-label {
+  color: #000000; /* Dark text color for light mode */
+}
+
+/* Light theme filepond action button */
+.filepond--file-action-button {
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.1
+  ); /* Lighter background for action buttons */
+  color: #000000; /* Dark text/icon color for action buttons */
+}
+
+/* ... other default light theme styles ... */
+
+/* Dark theme styles */
+.dark .filepond--panel-root {
+  background-color: #1e1e2f; /* Dark background for the panel */
+  /* ... other dark styles ... */
+}
+
+.dark .filepond--drop-label {
+  color: #f5f5f5; /* Lighter text color for dark mode */
+}
+
+.dark .filepond--label-action {
+  text-decoration-color: #ccc; /* Lighter underline color for "Browse" button */
+}
+
+.dark .filepond--item-panel {
+  background-color: #2c2c3b; /* Dark background for file items */
+}
+
+.dark .filepond--drip-blob {
+  background-color: #373749; /* Dark background for the drop circle */
+}
+
+.dark .filepond--file-action-button {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ); /* Slightly darker action button background */
+  color: #ffffff; /* White text/icon color for action buttons */
+}
+
+/* Customization for error and success states */
+.dark [data-filepond-item-state*="error"] .filepond--item-panel {
+  background-color: #ff4d4f; /* Use NextUI's error color */
+}
+
+.dark [data-filepond-item-state="processing-complete"] .filepond--item-panel {
+  background-color: #52c41a; /* Use NextUI's success color */
+}

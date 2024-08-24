@@ -5,4 +5,7 @@ module.exports = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  experimental: {
+    serverComponentsExternalPackages: ["pdf-parse"],
+  },
 };
