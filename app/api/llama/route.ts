@@ -10,12 +10,15 @@ import {
   SupportedTextSplitterLanguages,
 } from "langchain/text_splitter";
 
+import { LlamaParseReader } from "llamaindex";
+import "dotenv/config";
+
 export async function POST(req: NextRequest) {
   try {
     const formData: FormData = await req.formData();
     const uploadedFiles = formData.getAll("filepond");
     let fileName = "";
-    let parsedText = "";
+    let parsedText: string = "";
 
     if (uploadedFiles && uploadedFiles.length > 0) {
       // Parse the data from uploaded file
@@ -31,27 +34,33 @@ export async function POST(req: NextRequest) {
         await fs.writeFile(tempFilePath, fileBuffer);
         let dataBuffer = fs.readFile(tempFilePath);
 
-        await pdf(await dataBuffer).then(async function (data: { text: any }) {
-          console.log("parsedText", data.text);
-          // Collect the parsed data from the PDF file
-          parsedText = data.text;
+        const reader = new LlamaParseReader({ resultType: "markdown" });
 
-          // Spread data into chunks
-          const chunks = await new RecursiveCharacterTextSplitter({
+        const document = await reader.loadDataAsContent(await dataBuffer);
+        console.log("document", document);
+        // Collect the parsed data from the PDF file
+        parsedText = document.map((doc) => doc.text);
+
+        console.log("parsedText", parsedText);
+
+        // Spread data into chunks
+        const chunks = await RecursiveCharacterTextSplitter.fromLanguage(
+          "markdown",
+          {
             separators: ["\n\n", "\n", " ", ""],
-            chunkSize: 1000,
+            chunkSize: 2000,
             chunkOverlap: 100,
-          }).splitText(parsedText);
-          console.log("chunks", chunks);
+          }
+        ).createDocuments(parsedText);
+        console.log("chunks", chunks);
 
-          // Convert chunks to Vectors and store into MongoDB
-          await MongoDBAtlasVectorSearch.fromTexts(
-            chunks,
-            [],
-            getEmbeddingsTransformer(),
-            searchArgs()
-          );
-        });
+        // Convert chunks to Vectors and store into MongoDB
+        // await MongoDBAtlasVectorSearch.fromTexts(
+        //   chunks,
+        //   [],
+        //   getEmbeddingsTransformer(),
+        //   searchArgs()
+        // );
         return NextResponse.json(
           { message: "Uploaded to MongoDB" },
           { status: 200 }

@@ -6,6 +6,6 @@ module.exports = {
     ignoreBuildErrors: true,
   },
   experimental: {
-    serverComponentsExternalPackages: ["pdf-parse"],
+    serverComponentsExternalPackages: ["pdf-parse", "llamaindex"],
   },
 };

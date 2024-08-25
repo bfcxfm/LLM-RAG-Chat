@@ -59,6 +59,7 @@
     "intl-messageformat": "^10.5.0",
     "katex": "^0.16.11",
     "langchain": "^0.2.16",
+    "llamaindex": "^0.5.19",
     "lucide-react": "^0.428.0",
     "mongodb": "^6.8.0",
     "nanoid": "^5.0.7",

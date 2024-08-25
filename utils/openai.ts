@@ -10,7 +10,7 @@ dotenv.config();
 let embeddingsInstance: OpenAIEmbeddings | null = null;
 
 const client = new MongoClient(process.env.MONGODB_URI!);
-const namespace = "chatter.training_data";
+const namespace = "akichat.training_data";
 const [dbName, collectionName] = namespace.split(".");
 // const dbName = process.env.DB_NAME!;
 // const collectionName = process.env.COLL_NAME!;
@@ -21,8 +21,8 @@ export function getEmbeddingsTransformer(): OpenAIEmbeddings {
     // Ensure embeddingsInstance is initialized only once for efficiency
     if (!embeddingsInstance) {
       embeddingsInstance = new OpenAIEmbeddings({
-        model: "text-embedding-3-large", // Specify the embedding model
-        dimensions: 3072, // Specify dimension, to align with mongoDB vector
+        // model: "text-embedding-3-large", // Specify the embedding model
+        // dimensions: 1536, // Specify dimension, to align with mongoDB vector
       });
     }
 
@@ -58,7 +58,7 @@ export function vectorStore(): MongoDBAtlasVectorSearch {
 export function searchArgs(): MongoDBAtlasVectorSearchLibArgs {
   const searchArgs: MongoDBAtlasVectorSearchLibArgs = {
     collection,
-    indexName: "vector_index",
+    indexName: "vector_index_aki",
     textKey: "text",
     embeddingKey: "text_embedding",
   };
