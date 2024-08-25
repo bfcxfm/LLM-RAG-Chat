@@ -36,24 +36,25 @@ export function ChatPanel({
 
   const exampleMessages = [
     {
-      heading: "What is the two-way travel distance",
-      subheading: "of a public resort?",
-      message: `What is two-way travel distance of a public resort?`,
+      heading: "What is the exit Capacity No.",
+      subheading: "for a 2m wide staircase in school?",
+      message:
+        "What is the Capacity No. of persons for a 2m wide staircase in school?",
     },
     {
-      heading: "What is the Capacity No of persons",
-      subheading: "for 2m wide staircase?",
-      message: "What is the Capacity No of persons for 2m wide staircase?",
+      heading: "Explain in detail of",
+      subheading: "the barrier height requirement in preventing climbing.",
+      message: `Explain in detail of the barrier height requirement in preventing climbing.`,
+    },
+    {
+      heading: "What Key Factors should be considered",
+      subheading: `in wheelchair accessibility design?`,
+      message: `What key factors should be considered in wheelchair and corridor accessibility design?`,
     },
     {
       heading: "I would like to understand",
-      subheading: "the requirement of a smoke-stop lobby",
+      subheading: "the requirement of a smoke-stop lobby.",
       message: `I would like to understand the requirement and the area of a smoke-stop lobby`,
-    },
-    {
-      heading: "What is the process ",
-      subheading: `for preparing and submitting a fire safety report?`,
-      message: `What is the process for preparing and submitting a fire safety report to the relevant authorities?`,
     },
   ];
 
