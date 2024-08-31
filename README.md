@@ -112,6 +112,19 @@ The application supports system-based dark mode:
     - Authenticated admins can upload additional documents through the admin interface.
     - New documents are processed, embedded, and added to the existing knowledge base.
 
+## Future Features
+
+1. **Context-Based Chat Groups**:
+
+   - Users will be able to chat based on different context groups, allowing for more specialized and focused conversations.
+
+2. **Admin Document Upload for Context Topics**:
+
+   - Admins will have the ability to upload documents to form different context topics, expanding the range of specialized knowledge areas.
+
+3. **Browser-Based LLM with Transformer.js**:
+   - Implementation of Transformer.js to run the Language Model directly in the browser without relying on the API, enhancing privacy and reducing latency.
+
 ## Setup and Installation
 
 1. Clone the repository:
